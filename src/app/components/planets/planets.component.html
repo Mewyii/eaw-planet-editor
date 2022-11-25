@@ -1,0 +1,189 @@
+<button mat-flat-button [color]="'primary'" (click)="onShowAllPlanetsClicked()" class="spacing-right">
+  Show All Planets
+</button>
+<button mat-flat-button [color]="'primary'" (click)="onFilterOutDummyPlanetsClicked()" class="spacing-right">
+  Filter Out Dummy Planets
+</button>
+<button mat-flat-button [color]="'primary'" (click)="onShowFarmingPlanetsClicked()" class="spacing-right">
+  Show Only Farming Planets
+</button>
+<button mat-flat-button [color]="'primary'" (click)="onShowMiningPlanetsClicked()" class="spacing-right">
+  Show Only Mining Planets
+</button>
+<button mat-flat-button [color]="'primary'" (click)="onRecalculatePlanetEffectsClicked()">
+  Re-Calculate Planet Effects
+</button>
+<br />
+<br />
+<table mat-table [fixedLayout]="true" [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="@_Name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element["@_Name"] }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Type">
+    <th mat-header-cell *matHeaderCellDef>Type</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field>
+        <mat-select [value]="element.Type" (valueChange)="onPlanetPropertyChanged(element, 'Type', $event)">
+          <mat-option *ngFor="let type of planetTypes" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Climate">
+    <th mat-header-cell *matHeaderCellDef>Climate</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field>
+        <mat-select [value]="element.Climate" (valueChange)="onPlanetPropertyChanged(element, 'Climate', $event)">
+          <mat-option *ngFor="let type of climates" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Terrain">
+    <th mat-header-cell *matHeaderCellDef>Terrain</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field>
+        <mat-select [value]="element.Terrain" (valueChange)="onPlanetPropertyChanged(element, 'Terrain', $event)">
+          <mat-option *ngFor="let type of terrains" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Population">
+    <th mat-header-cell *matHeaderCellDef>Population</th>
+    <td mat-cell *matCellDef="let element">
+      <div class="large-cell">
+        <mat-form-field>
+          <mat-select [value]="element.Population" (valueChange)="onPlanetPropertyChanged(element, 'Population', $event)">
+            <mat-option *ngFor="let type of population" [value]="type">{{ type }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="big">
+          <input
+            matInput
+            name="populationInfo"
+            type="text"
+            [value]="element.PopulationInfo ?? ''"
+            (change)="onPlanetPropertyChanged(element, 'PopulationInfo', $any($event.target).value)"
+          />
+        </mat-form-field>
+      </div>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Resources">
+    <th mat-header-cell *matHeaderCellDef>Resources</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field>
+        <mat-select [value]="element.Resources" (valueChange)="onPlanetPropertyChanged(element, 'Resources', $event)">
+          <mat-option *ngFor="let type of resources" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Afilliation">
+    <th mat-header-cell *matHeaderCellDef>Afilliation</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field class="big">
+        <mat-select
+          [value]="element.Affiliation"
+          (valueChange)="onPlanetPropertyChanged(element, 'Affiliation', $event)"
+          multiple
+        >
+          <mat-option *ngFor="let type of affiliations" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="planet_Special">
+    <th mat-header-cell *matHeaderCellDef>Special</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-form-field class="big">
+        <mat-select [value]="element.Special" (valueChange)="onPlanetPropertyChanged(element, 'Special', $event)" multiple>
+          <mat-option *ngFor="let value of specials" [value]="value">{{ value }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Planet_Credit_Value">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Income</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.Planet_Credit_Value }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Additional_Population_Capacity">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Population Capacity</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.Additional_Population_Capacity }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="Planet_Capture_Bonus_Reward">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Capturing Costs</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.Planet_Capture_Bonus_Reward }}
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="planet_effects">
+    <th mat-header-cell *matHeaderCellDef>Additional Effects</th>
+    <td mat-cell *matCellDef="let element">
+      <ng-container *ngIf="element.Abilities">
+        <div *ngFor="let ability of getAbilitiesList(element.Abilities)">
+          {{ ability }}
+        </div>
+      </ng-container>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button color="primary" (click)="onDeletePlanetClicked(element)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <tr
+    mat-header-row
+    *matHeaderRowDef="
+      [
+        '@_Name',
+        'Type',
+        'Climate',
+        'Population',
+        'Terrain',
+        'Resources',
+        'Afilliation',
+        'planet_Special',
+        'Planet_Credit_Value',
+        'Additional_Population_Capacity',
+        'Planet_Capture_Bonus_Reward',
+        'planet_effects',
+        'actions'
+      ];
+      sticky: true
+    "
+  ></tr>
+  <tr
+    mat-row
+    *matRowDef="
+      let row;
+      columns: [
+        '@_Name',
+        'Type',
+        'Climate',
+        'Population',
+        'Terrain',
+        'Resources',
+        'Afilliation',
+        'planet_Special',
+        'Planet_Credit_Value',
+        'Additional_Population_Capacity',
+        'Planet_Capture_Bonus_Reward',
+        'planet_effects',
+        'actions'
+      ]
+    "
+  ></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[50]" showFirstLastButtons> </mat-paginator>

@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>Add Ability</h1>
+<div class="dialog-content" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Ability Name</mat-label>
+    <input matInput name="name" type="string" [(ngModel)]="ability['@_Name']" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Effect Type</mat-label>
+    <mat-select [(ngModel)]="ability.type">
+      <mat-option *ngFor="let abilityType of abilityTypes" [value]="abilityType">{{ abilityType }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field *ngIf="ability.type === 'ProductionPrice'">
+    <mat-label>Price Reduction</mat-label>
+    <input matInput name="priceReduction" type="number" [(ngModel)]="ability.Price_Reduction_Percentage" />
+  </mat-form-field>
+  <mat-form-field *ngIf="ability.type === 'ProductionTime'">
+    <mat-label>Time Reduction</mat-label>
+    <input matInput name="timeReduction" type="number" [(ngModel)]="ability.Time_Reduction_Percentage" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Applicable Categories</mat-label>
+    <input matInput name="applicableCategories" type="string" [(ngModel)]="ability.Applicable_Unit_Categories" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Applicable Types</mat-label>
+    <input matInput name="applicableTypes" type="string" [(ngModel)]="ability.Applicable_Unit_Types" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Stacking Category</mat-label>
+    <input matInput name="stackignCategory" type="number" [(ngModel)]="ability.Stacking_Category" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="onCancelClicked()">Cancel</button>
+  <button mat-flat-button [color]="'primary'" (click)="onConfirmClicked()" cdkFocusInitial>Add</button>
+</div>

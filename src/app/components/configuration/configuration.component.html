@@ -1,0 +1,104 @@
+<ng-container *ngIf="config">
+  <h2>Dummy Planet Identifiers</h2>
+  <div class="effects-config-container">
+    <mat-form-field style="width: 50vw">
+      <mat-label>Put in as Semicolon (;) Separated String</mat-label>
+      <input
+        matInput
+        name="dummyPlanetIdentifiers"
+        type="text"
+        [(ngModel)]="config.dummyPlanetIdentifiers"
+        (change)="onDummyPlanetIdentifiersChanged()"
+      />
+    </mat-form-field>
+  </div>
+  <br />
+  <h2>Planet Affiliations</h2>
+  <div class="effects-config-container">
+    <mat-form-field style="width: 50vw">
+      <mat-label>Put in as Semicolon (;) Separated String</mat-label>
+      <input
+        matInput
+        name="planetAffiliations"
+        type="text"
+        [(ngModel)]="config.planetAffiliations"
+        (change)="onPlanetAffiliationsChanged()"
+      />
+    </mat-form-field>
+  </div>
+  <br />
+  <h2>Effects</h2>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Planet Type Effects </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container *ngFor="let planetEffects of config.planetTypeEffects | keyvalue">
+      <app-configuration-row
+        [key]="planetEffects.key"
+        [(planetEffect)]="planetEffects.value"
+        (onPlanetEffectChange)="onPlanetEffectChanged()"
+        [effects]="effects"
+      ></app-configuration-row>
+    </ng-container>
+  </mat-expansion-panel>
+  <br /><br />
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Planet Population Effects </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container *ngFor="let planetEffects of config.planetPopulationEffects | keyvalue">
+      <app-configuration-row
+        [key]="planetEffects.key"
+        [(planetEffect)]="planetEffects.value"
+        (onPlanetEffectChange)="onPlanetEffectChanged()"
+        [effects]="effects"
+      ></app-configuration-row>
+    </ng-container>
+  </mat-expansion-panel>
+  <br /><br />
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Climate Effects </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container *ngFor="let planetEffects of config.planetClimateEffects | keyvalue">
+      <app-configuration-row
+        [key]="planetEffects.key"
+        [(planetEffect)]="planetEffects.value"
+        (onPlanetEffectChange)="onPlanetEffectChanged()"
+        [effects]="effects"
+      ></app-configuration-row>
+    </ng-container>
+  </mat-expansion-panel>
+  <br /><br />
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Terrain Effects </mat-panel-title>
+    </mat-expansion-panel-header>
+    <ng-container *ngFor="let planetEffects of config.planetTerrainEffects | keyvalue">
+      <app-configuration-row
+        [key]="planetEffects.key"
+        [(planetEffect)]="planetEffects.value"
+        (onPlanetEffectChange)="onPlanetEffectChanged()"
+        [effects]="effects"
+      ></app-configuration-row>
+    </ng-container>
+  </mat-expansion-panel>
+  <br /><br />
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Special Effects </mat-panel-title>
+    </mat-expansion-panel-header>
+    <button mat-flat-button [color]="'primary'" (click)="onAddPlanetEffectClicked()">add</button>
+    <br />
+    <br />
+    <ng-container *ngFor="let planetEffects of config.planetSpecialEffects | keyvalue">
+      <app-configuration-row
+        [key]="planetEffects.key"
+        [(planetEffect)]="planetEffects.value"
+        (onPlanetEffectChange)="onPlanetEffectChanged()"
+        [effects]="effects"
+        (planetEffectDelete)="onDeletePlanetEffectClicked('special', $event)"
+      ></app-configuration-row>
+    </ng-container>
+  </mat-expansion-panel>
+</ng-container>

@@ -1,0 +1,27 @@
+{
+  "name": "eaw-planet-editor",
+  "version": "1.0",
+  "main": "electron-app-main.js",
+  "author": "MWY",
+  "description": "Editor for Planets-XML files of Empire at War",
+  "scripts": {
+    "electron-make": "electron-forge make"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^18.2.3"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-zip",
+          "config": {
+            "name": "eaw_planet_editor"
+          }
+        }
+      ]
+    }
+  }
+}

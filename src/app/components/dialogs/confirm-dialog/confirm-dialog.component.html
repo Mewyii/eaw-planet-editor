@@ -1,0 +1,6 @@
+<h1 mat-dialog-title>Confirm</h1>
+<div class="dialog-content" mat-dialog-content>Are you sure you wanna do this?</div>
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="dialogRef.close()">Cancel</button>
+  <button mat-flat-button [color]="'primary'" (click)="dialogRef.close(true)" cdkFocusInitial>Yes</button>
+</div>

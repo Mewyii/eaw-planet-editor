@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>Add Effect</h1>
+<div class="dialog-content" mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput name="name" type="string" [(ngModel)]="name" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Income</mat-label>
+    <input matInput name="income" type="number" [(ngModel)]="effect.income" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Population Capacity</mat-label>
+    <input matInput name="popCap" type="number" [(ngModel)]="effect.popCap" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Conquering Bonus</mat-label>
+    <input matInput name="conqueringCosts" type="number" [(ngModel)]="effect.conqueringCosts" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Additional Effects</mat-label>
+    <mat-select [(ngModel)]="effect.abilities" multiple>
+      <mat-option *ngFor="let effect of effects" [value]="effect">{{ effect }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-flat-button (click)="onCancelClicked()">Cancel</button>
+  <button mat-flat-button [color]="'primary'" (click)="onConfirmClicked()" cdkFocusInitial>Add</button>
+</div>

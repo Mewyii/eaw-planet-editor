@@ -1,0 +1,50 @@
+<div class="effects-config-container">
+  <div class="effects-config-title">{{ key }}</div>
+  <mat-form-field>
+    <mat-label>Income</mat-label>
+    <input
+      matInput
+      name="income"
+      type="number"
+      [(ngModel)]="planetEffect.income"
+      (ngModelChange)="planetEffectChange.emit(planetEffect)"
+      (change)="onPlanetEffectChange.emit()"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Population Capacity</mat-label>
+    <input
+      matInput
+      name="popCap"
+      type="number"
+      [(ngModel)]="planetEffect.popCap"
+      (ngModelChange)="planetEffectChange.emit(planetEffect)"
+      (change)="onPlanetEffectChange.emit()"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Conquering Bonus</mat-label>
+    <input
+      matInput
+      name="conqueringCosts"
+      type="number"
+      [(ngModel)]="planetEffect.conqueringCosts"
+      (ngModelChange)="planetEffectChange.emit(planetEffect)"
+      (change)="onPlanetEffectChange.emit()"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Additional Effects</mat-label>
+    <mat-select
+      [(ngModel)]="planetEffect.abilities"
+      (ngModelChange)="planetEffectChange.emit(planetEffect)"
+      (selectionChange)="onPlanetEffectChange.emit()"
+      multiple
+    >
+      <mat-option *ngFor="let effect of effects" [value]="effect">{{ effect }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-icon-button color="primary" (click)="planetEffectDelete.emit(key)">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>

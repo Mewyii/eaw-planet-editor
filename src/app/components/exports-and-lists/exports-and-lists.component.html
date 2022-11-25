@@ -1,0 +1,52 @@
+<button mat-flat-button [color]="'primary'" (click)="onShowAllPlanetsClicked()" class="spacing-right">Reset</button>
+<mat-form-field class="spacing-right">
+  <mat-label>Resources</mat-label>
+  <mat-select [value]="selectedResources" (valueChange)="onSelectionChanged('Resources', $event)" multiple>
+    <mat-option *ngFor="let type of resources" [value]="type">{{ type }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="spacing-right">
+  <mat-label>Population</mat-label>
+  <mat-select [value]="selectedPopulations" (valueChange)="onSelectionChanged('Population', $event)" multiple>
+    <mat-option *ngFor="let type of populations" [value]="type">{{ type }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="spacing-right">
+  <mat-label>Affilliation</mat-label>
+  <mat-select [value]="selectedAffiliations" (valueChange)="onSelectionChanged('Affiliation', $event)" multiple>
+    <mat-option *ngFor="let type of affiliations" [value]="type">{{ type }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field class="spacing-right">
+  <mat-label>Terrain</mat-label>
+  <mat-select [value]="selectedTerrains" (valueChange)="onSelectionChanged('Terrain', $event)" multiple>
+    <mat-option *ngFor="let type of terrains" [value]="type">{{ type }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Special</mat-label>
+  <mat-select [value]="selectedSpecials" (valueChange)="onSelectionChanged('Special', $event)" multiple>
+    <mat-option *ngFor="let value of specials" [value]="value">{{ value }}</mat-option>
+  </mat-select>
+</mat-form-field>
+<br /><br />
+<button mat-stroked-button [color]="'basic'" (click)="onCopyTextToClipboardCommaSeperatedClicked()" class="spacing-right">
+  Copy list as comma seperated text
+</button>
+<button mat-stroked-button [color]="'basic'" (click)="onCopyTextToClipboardLuaTableClicked()" class="spacing-right">
+  Copy list as lua table
+</button>
+<button mat-stroked-button [color]="'basic'" (click)="onCopyTextToClipboardAIEqationsClicked()" class="spacing-right">
+  Copy list for AI equations
+</button>
+<br /><br />
+<div>
+  <div>Planet Count: {{ filteredPlanets.length }}</div>
+  <br />
+  <div class="list-container">
+    <ng-container *ngFor="let planet of filteredPlanets; let isLast = last">
+      <span>{{ planet }}</span
+      ><span *ngIf="!isLast">, </span>
+    </ng-container>
+  </div>
+</div>
